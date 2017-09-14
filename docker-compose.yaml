@@ -11,6 +11,8 @@ services:
         max-file: "3"
     env_file:
       - ./default.env
+    volumes:
+      - /data/mysql:/var/lib/mysql
     ports:
       - 3306:3306
     
