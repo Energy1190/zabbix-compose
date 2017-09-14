@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: zabbix-mysql
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    env_file:
+      - ./default.env
+    ports:
+      - 3306:3306
+    
+  zabbix:
+    image: zabbix/zabbix-server-mysql
+    container_name: zabbix-server
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    env_file:
+      - ./default.env
+  
+  nginx:
+    image: zabbix/zabbix-web-nginx-mysql
+    container_name: zabbix-nginx
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    links:
+      - zabbix:zabbix-server
+      - mysql:mysql
+    env_file:
+      - ./default.env
+    ports:
+      - 80:80
+      - 443:443
