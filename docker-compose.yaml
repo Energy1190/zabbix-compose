@@ -25,6 +25,7 @@ services:
         max-file: "3"
     env_file:
       - ./default.env
+      - ./user.env
   
   nginx:
     image: zabbix/zabbix-web-nginx-mysql
@@ -38,6 +39,7 @@ services:
       - mysql:mysql
     env_file:
       - ./default.env
+      - ./user.env
     ports:
       - 80:80
       - 443:443
